@@ -26,7 +26,8 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -61,7 +62,20 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Verdis Brand Colors
+				verdis: {
+					emerald: 'hsl(var(--verdis-emerald))',
+					'emerald-light': 'hsl(var(--verdis-emerald-light))',
+					blue: 'hsl(var(--verdis-blue))',
+					'blue-light': 'hsl(var(--verdis-blue-light))',
+					gold: 'hsl(var(--verdis-gold))',
+					'gold-light': 'hsl(var(--verdis-gold-light))'
 				}
+			},
+			fontFamily: {
+				montserrat: ['Montserrat', 'sans-serif'],
+				lora: ['Lora', 'serif']
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
