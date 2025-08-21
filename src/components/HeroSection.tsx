@@ -30,7 +30,7 @@ const HeroSection = () => {
           {/* Main Title */}
           <h1 className="text-5xl lg:text-7xl font-bold font-montserrat tracking-tight">
             Welcome to the{' '}
-            <span className="block text-gradient-gold font-lora italic">
+            <span className="block text-gradient-blue font-lora italic">
               Free Republic of Verdis
             </span>
           </h1>
@@ -52,6 +52,7 @@ const HeroSection = () => {
               variant="verdis" 
               size="xl" 
               className="group"
+              onClick={() => window.location.href = '#citizenship'}
             >
               <Users className="w-5 h-5 mr-2" />
               Apply for Citizenship
@@ -59,9 +60,10 @@ const HeroSection = () => {
             </Button>
             
             <Button 
-              variant="verdis-gold" 
+              variant="verdis-secondary" 
               size="xl" 
               className="group"
+              onClick={() => window.location.href = '#donations'}
             >
               <Heart className="w-5 h-5 mr-2" />
               Donate to Verdis
@@ -71,7 +73,8 @@ const HeroSection = () => {
             <Button 
               variant="verdis-outline" 
               size="xl" 
-              className="group border-white text-white hover:bg-white hover:text-verdis-blue"
+              className="group border-white text-white hover:bg-white hover:text-verdis-blue-dark"
+              onClick={() => window.location.href = '#citizenship'}
             >
               <MapPin className="w-5 h-5 mr-2" />
               Explore Settlement Maps
@@ -81,19 +84,19 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/20">
             <div className="text-center">
-              <div className="text-4xl font-bold font-montserrat text-verdis-gold mb-2">
+              <div className="text-4xl font-bold font-montserrat text-primary mb-2">
                 $500K+
               </div>
               <p className="text-white/80 font-lora">Raised for Development</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold font-montserrat text-verdis-gold mb-2">
+              <div className="text-4xl font-bold font-montserrat text-primary mb-2">
                 1000+
               </div>
               <p className="text-white/80 font-lora">Citizenship Applications</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold font-montserrat text-verdis-gold mb-2">
+              <div className="text-4xl font-bold font-montserrat text-primary mb-2">
                 2019
               </div>
               <p className="text-white/80 font-lora">Proclamation of Independence</p>

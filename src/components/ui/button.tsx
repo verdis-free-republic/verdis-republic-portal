@@ -20,7 +20,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         // Verdis Custom Variants
         verdis: "verdis-button-primary text-white font-semibold tracking-wide",
-        "verdis-gold": "verdis-button-gold text-verdis-blue font-semibold tracking-wide",
+        "verdis-secondary": "verdis-button-gold text-verdis-blue-dark font-semibold tracking-wide",
         "verdis-outline": "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-white",
       },
       size: {

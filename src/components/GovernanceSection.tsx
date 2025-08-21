@@ -71,7 +71,12 @@ const GovernanceSection = () => {
               Discover how Verdis is pioneering a new model of democratic governance 
               for the modern age. Explore our constitution, laws, and democratic processes.
             </p>
-            <Button variant="verdis" size="lg" className="group">
+            <Button 
+              variant="verdis" 
+              size="lg" 
+              className="group"
+              onClick={() => window.location.href = '#government'}
+            >
               Government Structure
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>

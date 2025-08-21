@@ -31,7 +31,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-verdis-emerald-light">
+    <section className="py-20 bg-verdis-blue-light">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
@@ -59,7 +59,7 @@ const AboutSection = () => {
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
                   
-                  <div className="text-2xl font-bold font-montserrat text-verdis-gold mb-2">
+                  <div className="text-2xl font-bold font-montserrat text-primary mb-2">
                     {milestone.year}
                   </div>
                   

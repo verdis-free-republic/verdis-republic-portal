@@ -22,7 +22,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-verdis-blue text-white">
+    <footer className="bg-verdis-blue-dark text-white">
       {/* Main Footer Content */}
       <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
@@ -37,14 +37,14 @@ const Footer = () => {
             </p>
             
             <div className="flex items-center space-x-3 mb-4">
-              <MapPin className="w-5 h-5 text-verdis-gold" />
+              <MapPin className="w-5 h-5 text-primary" />
               <span className="font-lora text-white/90">
                 Danube River Territory, Between Croatia & Serbia
               </span>
             </div>
             
             <div className="flex items-center space-x-3">
-              <Mail className="w-5 h-5 text-verdis-gold" />
+              <Mail className="w-5 h-5 text-primary" />
               <span className="font-lora text-white/90">
                 info@verdis-republic.org
               </span>
@@ -59,7 +59,7 @@ const Footer = () => {
                 <li key={index}>
                   <a 
                     href={link.href}
-                    className="font-lora text-white/80 hover:text-verdis-gold transition-colors duration-200"
+                    className="font-lora text-white/80 hover:text-primary transition-colors duration-200"
                   >
                     {link.label}
                   </a>
@@ -80,7 +80,7 @@ const Footer = () => {
                     key={index}
                     href={social.href}
                     aria-label={social.label}
-                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-verdis-gold hover:text-verdis-blue transition-all duration-200"
+                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-200"
                   >
                     <IconComponent className="w-5 h-5" />
                   </a>
@@ -89,7 +89,7 @@ const Footer = () => {
             </div>
 
             <div>
-              <h5 className="font-semibold font-montserrat mb-3 text-verdis-gold">
+              <h5 className="font-semibold font-montserrat mb-3 text-primary">
                 Stay Updated
               </h5>
               <p className="font-lora text-white/80 text-sm mb-4">
@@ -99,9 +99,9 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-l-md text-white placeholder-white/60 focus:outline-none focus:border-verdis-gold"
+                  className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-l-md text-white placeholder-white/60 focus:outline-none focus:border-primary"
                 />
-                <button className="px-6 py-2 bg-verdis-gold text-verdis-blue font-semibold rounded-r-md hover:bg-accent transition-colors">
+                <button className="px-6 py-2 bg-primary text-white font-semibold rounded-r-md hover:bg-primary/80 transition-colors">
                   Subscribe
                 </button>
               </div>
@@ -124,7 +124,7 @@ const Footer = () => {
 
           {/* Tagline */}
           <div className="text-center md:text-right">
-            <p className="font-lora text-verdis-gold font-medium italic">
+            <p className="font-lora text-primary font-medium italic">
               "Verdis: A Land of Freedom, Unity, and Opportunity."
             </p>
           </div>
@@ -133,16 +133,16 @@ const Footer = () => {
         {/* Legal Links */}
         <div className="mt-6 pt-6 border-t border-white/10">
           <div className="flex flex-wrap justify-center space-x-6 text-sm">
-            <a href="#" className="font-lora text-white/70 hover:text-verdis-gold transition-colors">
+            <a href="#" className="font-lora text-white/70 hover:text-primary transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="font-lora text-white/70 hover:text-verdis-gold transition-colors">
+            <a href="#" className="font-lora text-white/70 hover:text-primary transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="font-lora text-white/70 hover:text-verdis-gold transition-colors">
+            <a href="#" className="font-lora text-white/70 hover:text-primary transition-colors">
               Constitution
             </a>
-            <a href="#" className="font-lora text-white/70 hover:text-verdis-gold transition-colors">
+            <a href="#" className="font-lora text-white/70 hover:text-primary transition-colors">
               Legal Framework
             </a>
           </div>

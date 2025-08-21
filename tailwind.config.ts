@@ -65,12 +65,12 @@ export default {
 				},
 				// Verdis Brand Colors
 				verdis: {
-					emerald: 'hsl(var(--verdis-emerald))',
-					'emerald-light': 'hsl(var(--verdis-emerald-light))',
 					blue: 'hsl(var(--verdis-blue))',
 					'blue-light': 'hsl(var(--verdis-blue-light))',
-					gold: 'hsl(var(--verdis-gold))',
-					'gold-light': 'hsl(var(--verdis-gold-light))'
+					'blue-dark': 'hsl(var(--verdis-blue-dark))',
+					'blue-darker': 'hsl(var(--verdis-blue-darker))',
+					white: 'hsl(var(--verdis-white))',
+					'white-soft': 'hsl(var(--verdis-white-soft))'
 				}
 			},
 			fontFamily: {

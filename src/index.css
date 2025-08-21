@@ -8,32 +8,32 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Verdis Color Palette */
+    /* New Blue & White Color Palette */
     --background: 0 0% 100%;
-    --foreground: 210 100% 20%;
+    --foreground: 210 100% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 100% 20%;
+    --card-foreground: 210 100% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 100% 20%;
+    --popover-foreground: 210 100% 15%;
 
-    /* Emerald Green Primary */
-    --primary: 158 100% 28%;
+    /* Sky Blue Primary */
+    --primary: 210 80% 65%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 158 80% 40%;
+    --primary-glow: 210 70% 75%;
 
     /* Deep Blue Secondary */
-    --secondary: 210 100% 20%;
+    --secondary: 210 100% 25%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Light backgrounds */
-    --muted: 158 20% 96%;
+    /* Light blue backgrounds */
+    --muted: 210 30% 96%;
     --muted-foreground: 210 50% 40%;
 
-    /* Golden Accent */
-    --accent: 48 74% 52%;
-    --accent-foreground: 210 100% 20%;
+    /* Light Blue Accent */
+    --accent: 210 60% 80%;
+    --accent-foreground: 210 100% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -44,23 +44,23 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    /* Verdis Custom Design Tokens */
-    --verdis-emerald: 158 100% 28%;
-    --verdis-emerald-light: 158 60% 85%;
-    --verdis-blue: 210 100% 20%;
-    --verdis-blue-light: 210 50% 95%;
-    --verdis-gold: 48 74% 52%;
-    --verdis-gold-light: 48 50% 90%;
+    /* New Blue Theme Design Tokens */
+    --verdis-blue: 210 80% 65%;
+    --verdis-blue-light: 210 40% 90%;
+    --verdis-blue-dark: 210 100% 25%;
+    --verdis-blue-darker: 210 100% 15%;
+    --verdis-white: 0 0% 100%;
+    --verdis-white-soft: 0 0% 98%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--verdis-emerald)) 0%, hsl(var(--verdis-blue)) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--background)) 0%, hsl(var(--verdis-emerald-light)) 100%);
-    --gradient-accent: linear-gradient(90deg, hsl(var(--verdis-gold)) 0%, hsl(var(--accent)) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--verdis-blue)) 0%, hsl(var(--verdis-blue-dark)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--background)) 0%, hsl(var(--verdis-blue-light)) 100%);
+    --gradient-accent: linear-gradient(90deg, hsl(var(--verdis-blue)) 0%, hsl(var(--verdis-blue-light)) 100%);
 
     /* Shadows */
-    --shadow-verdis: 0 10px 30px -10px hsl(var(--verdis-emerald) / 0.2);
-    --shadow-card: 0 4px 20px -4px hsl(var(--verdis-blue) / 0.1);
-    --shadow-glow: 0 0 40px hsl(var(--verdis-emerald) / 0.3);
+    --shadow-verdis: 0 10px 30px -10px hsl(var(--verdis-blue) / 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(var(--verdis-blue-dark) / 0.1);
+    --shadow-glow: 0 0 40px hsl(var(--verdis-blue) / 0.3);
 
     /* Animations */
     --transition-verdis: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -83,42 +83,42 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 210 100% 20%;
+    --background: 210 100% 15%;
     --foreground: 0 0% 100%;
 
-    --card: 210 100% 20%;
+    --card: 210 100% 15%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 210 100% 20%;
+    --popover: 210 100% 15%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 158 100% 28%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 158 80% 40%;
+    --primary: 210 80% 65%;
+    --primary-foreground: 210 100% 15%;
+    --primary-glow: 210 70% 75%;
 
-    --secondary: 158 20% 15%;
+    --secondary: 210 60% 25%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 50% 15%;
-    --muted-foreground: 158 20% 70%;
+    --muted: 210 50% 18%;
+    --muted-foreground: 210 30% 70%;
 
-    --accent: 48 74% 52%;
-    --accent-foreground: 210 100% 20%;
+    --accent: 210 60% 70%;
+    --accent-foreground: 210 100% 15%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 210 50% 25%;
     --input: 210 50% 25%;
-    --ring: 158 100% 28%;
+    --ring: 210 80% 65%;
 
-    /* Dark mode Verdis colors */
-    --verdis-emerald: 158 100% 28%;
-    --verdis-emerald-light: 158 30% 15%;
-    --verdis-blue: 210 100% 20%;
-    --verdis-blue-light: 210 30% 12%;
-    --verdis-gold: 48 74% 52%;
-    --verdis-gold-light: 48 30% 15%;
+    /* Dark mode Blue colors */
+    --verdis-blue: 210 80% 65%;
+    --verdis-blue-light: 210 30% 20%;
+    --verdis-blue-dark: 210 100% 25%;
+    --verdis-blue-darker: 210 100% 15%;
+    --verdis-white: 0 0% 100%;
+    --verdis-white-soft: 210 20% 95%;
   }
 }
 
@@ -204,7 +204,7 @@ All colors MUST be HSL.
     background-clip: text;
   }
 
-  .text-gradient-gold {
+  .text-gradient-blue {
     background: var(--gradient-accent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

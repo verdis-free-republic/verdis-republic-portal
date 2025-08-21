@@ -70,8 +70,8 @@ const DefenseSection = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-verdis-gold rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-verdis-blue font-bold text-sm">1</span>
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white font-bold text-sm">1</span>
                 </div>
                 <div>
                   <h4 className="font-semibold font-montserrat text-white mb-2">
@@ -85,8 +85,8 @@ const DefenseSection = () => {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-verdis-gold rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-verdis-blue font-bold text-sm">2</span>
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white font-bold text-sm">2</span>
                 </div>
                 <div>
                   <h4 className="font-semibold font-montserrat text-white mb-2">
@@ -100,8 +100,8 @@ const DefenseSection = () => {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-verdis-gold rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-verdis-blue font-bold text-sm">3</span>
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white font-bold text-sm">3</span>
                 </div>
                 <div>
                   <h4 className="font-semibold font-montserrat text-white mb-2">
@@ -115,8 +115,8 @@ const DefenseSection = () => {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-verdis-gold rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-verdis-blue font-bold text-sm">4</span>
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white font-bold text-sm">4</span>
                 </div>
                 <div>
                   <h4 className="font-semibold font-montserrat text-white mb-2">
@@ -144,13 +144,23 @@ const DefenseSection = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="verdis-gold" size="xl" className="group">
+            <Button 
+              variant="verdis-secondary" 
+              size="xl" 
+              className="group"
+              onClick={() => window.location.href = '#donations'}
+            >
               <Shield className="w-5 h-5 mr-2" />
               Support Defense Efforts
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             
-            <Button variant="verdis-outline" size="xl" className="border-white text-white hover:bg-white hover:text-verdis-blue group">
+            <Button 
+              variant="verdis-outline" 
+              size="xl" 
+              className="border-white text-white hover:bg-white hover:text-verdis-blue-dark group"
+              onClick={() => window.location.href = '#partnerships'}
+            >
               <Globe className="w-5 h-5 mr-2" />
               Partnership Opportunities
             </Button>

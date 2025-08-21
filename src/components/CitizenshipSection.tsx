@@ -82,7 +82,11 @@ const CitizenshipSection = () => {
                   Explore our cutting-edge 3D settlement mapping system. Visualize available 
                   land, plan communities, and see how your investment contributes to Verdis' development.
                 </p>
-                <Button variant="verdis-outline" size="sm">
+                <Button 
+                  variant="verdis-outline" 
+                  size="sm"
+                  onClick={() => window.location.href = '#citizenship'}
+                >
                   Explore Maps
                 </Button>
               </div>
@@ -93,13 +97,23 @@ const CitizenshipSection = () => {
         {/* Action Buttons */}
         <div className="text-center space-y-6">
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="verdis" size="xl" className="group">
+            <Button 
+              variant="verdis" 
+              size="xl" 
+              className="group"
+              onClick={() => window.location.href = '#citizenship'}
+            >
               <UserPlus className="w-5 h-5 mr-2" />
               Apply for Citizenship
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             
-            <Button variant="verdis-gold" size="xl" className="group">
+            <Button 
+              variant="verdis-secondary" 
+              size="xl" 
+              className="group"
+              onClick={() => window.location.href = '#citizenship'}
+            >
               <Map className="w-5 h-5 mr-2" />
               View Settlement Maps
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

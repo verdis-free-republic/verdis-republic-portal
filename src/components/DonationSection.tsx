@@ -41,9 +41,9 @@ const DonationSection = () => {
           </h2>
           
           {/* Progress Highlight */}
-          <div className="inline-flex items-center bg-verdis-gold-light px-6 py-3 rounded-full mb-6">
-            <TrendingUp className="w-5 h-5 text-verdis-gold mr-2" />
-            <span className="font-semibold font-montserrat text-verdis-blue">
+          <div className="inline-flex items-center bg-primary/20 px-6 py-3 rounded-full mb-6">
+            <TrendingUp className="w-5 h-5 text-primary mr-2" />
+            <span className="font-semibold font-montserrat text-verdis-blue-dark">
               We have already raised over $500,000 for infrastructure and development
             </span>
           </div>
@@ -73,7 +73,13 @@ const DonationSection = () => {
                   {category.description}
                 </p>
                 
-                <Button variant="verdis-outline" className="group">
+                <Button 
+                  variant="verdis-outline" 
+                  className="group"
+                  onClick={() => {
+                    alert('Donation functionality will be implemented with payment gateway');
+                  }}
+                >
                   Donate Now
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
@@ -102,7 +108,14 @@ const DonationSection = () => {
             </div>
 
             <div className="space-y-4">
-              <Button variant="verdis-gold" size="xl" className="group text-xl px-12 py-6">
+              <Button 
+                variant="verdis-secondary" 
+                size="xl" 
+                className="group text-xl px-12 py-6"
+                onClick={() => {
+                  alert('Donation functionality will be implemented with payment gateway');
+                }}
+              >
                 <Heart className="w-6 h-6 mr-3" />
                 Donate to Verdis
                 <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
@@ -118,19 +131,19 @@ const DonationSection = () => {
         {/* Impact Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           <div className="text-center">
-            <div className="text-4xl font-bold font-montserrat text-verdis-gold mb-2">
+            <div className="text-4xl font-bold font-montserrat text-primary mb-2">
               $500K+
             </div>
             <p className="font-lora text-muted-foreground">Total Funds Raised</p>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold font-montserrat text-verdis-gold mb-2">
+            <div className="text-4xl font-bold font-montserrat text-primary mb-2">
               150+
             </div>
             <p className="font-lora text-muted-foreground">Contributing Supporters</p>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold font-montserrat text-verdis-gold mb-2">
+            <div className="text-4xl font-bold font-montserrat text-primary mb-2">
               5
             </div>
             <p className="font-lora text-muted-foreground">Active Projects Funded</p>
