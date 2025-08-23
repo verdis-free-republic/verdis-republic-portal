@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { UserPlus, Map, Home, ArrowRight, Globe, MapPin, Users } from 'lucide-react';
-import CitizenshipForm from './CitizenshipForm';
+import { CitizenshipFormWizard } from './citizenship/CitizenshipFormWizard';
 
 const CitizenshipSection = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -136,7 +136,7 @@ const CitizenshipSection = () => {
       </div>
 
       {/* Citizenship Application Form */}
-      <CitizenshipForm 
+      <CitizenshipFormWizard 
         isOpen={isFormOpen} 
         onClose={() => setIsFormOpen(false)} 
       />
