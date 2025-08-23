@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { UserPlus, Map, Home, ArrowRight, Globe } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { UserPlus, Map, Home, ArrowRight, Globe, MapPin, Users } from 'lucide-react';
+import CitizenshipForm from './CitizenshipForm';
 
 const CitizenshipSection = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isMapDialogOpen, setIsMapDialogOpen] = useState(false);
+
   return (
     <section className="py-20 bg-verdis-blue-light">
       <div className="container mx-auto px-6">
@@ -72,24 +77,26 @@ const CitizenshipSection = () => {
           <Card className="verdis-card p-6 md:col-span-2">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                <Map className="w-6 h-6 text-verdis-blue" />
+                <MapPin className="w-6 h-6 text-verdis-blue" />
               </div>
-              <div>
+              <div className="flex-1">
                 <h3 className="text-lg font-semibold font-montserrat text-verdis-blue mb-3">
                   Interactive Settlement Maps
                 </h3>
                 <p className="font-lora text-verdis-blue/70 text-sm mb-4">
                   Explore our cutting-edge 3D settlement mapping system. Visualize available 
-                  land, plan communities, and see how your investment contributes to Verdis' development.
+                  land, plan communities, and see how your investment contributes to Verdis' development. 
+                  Priority access for citizens and early settlers.
                 </p>
                 <Button 
                   variant="verdis-outline" 
                   size="sm"
-                  onClick={() => {
-                    alert('Settlement Maps\n\nInteractive settlement maps are currently in development. Contact us at: settlements@verdis.org for early access and pioneer opportunities.');
-                  }}
+                  onClick={() => setIsMapDialogOpen(true)}
+                  className="group"
                 >
-                  Explore Maps
+                  <Map className="w-4 h-4 mr-2" />
+                  Explore Settlement Maps
+                  <ArrowRight className="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </div>
             </div>
@@ -103,9 +110,7 @@ const CitizenshipSection = () => {
               variant="verdis" 
               size="xl" 
               className="group"
-              onClick={() => {
-                alert('Citizenship Application Form\n\nTo apply for Verdian citizenship, please email your application to: citizenship@verdis.org\n\nInclude:\n- Full name and contact information\n- Brief statement of intent\n- Supporting documents');
-              }}
+              onClick={() => setIsFormOpen(true)}
             >
               <UserPlus className="w-5 h-5 mr-2" />
               Apply for Citizenship
@@ -116,9 +121,7 @@ const CitizenshipSection = () => {
               variant="verdis-secondary" 
               size="xl" 
               className="group"
-              onClick={() => {
-                alert('Settlement Maps\n\nInteractive settlement maps are currently in development. Contact us at: settlements@verdis.org for early access and pioneer opportunities.');
-              }}
+              onClick={() => setIsMapDialogOpen(true)}
             >
               <Map className="w-5 h-5 mr-2" />
               View Settlement Maps
@@ -131,6 +134,104 @@ const CitizenshipSection = () => {
           </p>
         </div>
       </div>
+
+      {/* Citizenship Application Form */}
+      <CitizenshipForm 
+        isOpen={isFormOpen} 
+        onClose={() => setIsFormOpen(false)} 
+      />
+
+      {/* Settlement Maps Dialog */}
+      <Dialog open={isMapDialogOpen} onOpenChange={setIsMapDialogOpen}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-montserrat text-verdis-blue">
+              Verdis Settlement Mapping System
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6">
+            <Card className="verdis-card p-6">
+              <div className="flex items-start space-x-4">
+                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold font-montserrat text-verdis-blue mb-3">
+                    Interactive 3D Settlement Maps
+                  </h3>
+                  <p className="font-lora text-muted-foreground mb-4">
+                    Our cutting-edge settlement mapping system allows you to explore available land 
+                    along the Danube River, visualize community layouts, and see development opportunities 
+                    in real-time 3D environments.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="verdis-card p-4">
+                <Users className="w-8 h-8 text-primary mb-3" />
+                <h4 className="font-semibold font-montserrat text-verdis-blue mb-2">
+                  Pioneer Communities
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Join planned settlements designed for early citizens and investors.
+                </p>
+              </Card>
+
+              <Card className="verdis-card p-4">
+                <Globe className="w-8 h-8 text-accent mb-3" />
+                <h4 className="font-semibold font-montserrat text-verdis-blue mb-2">
+                  Land Development
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Participate in sustainable development projects along the river.
+                </p>
+              </Card>
+            </div>
+
+            <Card className="verdis-card p-6 bg-blue-50 border-blue-200">
+              <div className="text-center">
+                <h4 className="font-semibold font-montserrat text-verdis-blue mb-2">
+                  Early Access Program
+                </h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  The interactive settlement mapping system is currently in development. 
+                  Citizens and early supporters get priority access to beta testing and settlement opportunities.
+                </p>
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-verdis-blue">
+                    Contact our Settlement Planning Team:
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    📧 settlements@verdis.org
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    🗺️ Request access to beta maps and pioneer opportunities
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <div className="flex justify-center">
+              <Button 
+                variant="verdis" 
+                size="lg"
+                onClick={() => {
+                  navigator.clipboard.writeText('settlements@verdis.org');
+                  alert('Email address copied to clipboard!\n\nContact settlements@verdis.org for early access to our settlement mapping system.');
+                }}
+                className="group"
+              >
+                <MapPin className="w-5 h-5 mr-2" />
+                Request Early Access
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

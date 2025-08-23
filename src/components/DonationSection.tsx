@@ -50,8 +50,8 @@ const DonationSection = () => {
           
           <p className="text-xl font-lora text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Every contribution brings Verdis closer to a strong, self-sustaining future. 
-            You can donate to infrastructure, healthcare, education, or defense to help 
-            build a nation that represents freedom, unity, and opportunity.
+            Choose from specific funding categories below or make a general donation to support 
+            our nation-building efforts where they're needed most.
           </p>
         </div>
 
@@ -77,7 +77,14 @@ const DonationSection = () => {
                   variant="verdis-outline" 
                   className="group"
                   onClick={() => {
-                    alert(`Donate to ${category.title}\n\nBitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\nYour donation supports: ${category.description}`);
+                    const message = `Support ${category.title}\n\n` +
+                      `💰 Bitcoin Address:\n` +
+                      `bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n` +
+                      `📋 Purpose: ${category.description}\n\n` +
+                      `Thank you for supporting the Free Republic of Verdis!`;
+                    
+                    navigator.clipboard.writeText('bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47');
+                    alert(message + '\n\n✅ Bitcoin address copied to clipboard!');
                   }}
                 >
                   Donate Now
@@ -113,7 +120,18 @@ const DonationSection = () => {
                 size="xl" 
                 className="group text-xl px-12 py-6"
                 onClick={() => {
-                  alert('Donate to Verdis using Bitcoin\n\nBitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\nYour donation helps build our nation\'s infrastructure, institutions, and future.');
+                  const message = `Donate to the Free Republic of Verdis\n\n` +
+                    `💰 Bitcoin Address:\n` +
+                    `bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n` +
+                    `🏛️ Your donation supports:\n` +
+                    `• Infrastructure development\n` +
+                    `• Government institutions\n` +
+                    `• Citizen services\n` +
+                    `• Nation-building initiatives\n\n` +
+                    `Thank you for helping build Verdis!`;
+                  
+                  navigator.clipboard.writeText('bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47');
+                  alert(message + '\n\n✅ Bitcoin address copied to clipboard!');
                 }}
               >
                 <Heart className="w-6 h-6 mr-3" />
@@ -122,7 +140,7 @@ const DonationSection = () => {
               </Button>
               
               <p className="text-sm font-lora text-muted-foreground">
-                Multiple payment options available including cryptocurrency
+                Secure Bitcoin donations • Address automatically copied when you click donate
               </p>
             </div>
           </Card>
