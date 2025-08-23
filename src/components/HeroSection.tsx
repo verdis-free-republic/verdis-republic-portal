@@ -52,7 +52,9 @@ const HeroSection = () => {
               variant="verdis" 
               size="xl" 
               className="group"
-              onClick={() => window.location.href = '#citizenship'}
+              onClick={() => {
+                alert('Citizenship Application Form\n\nTo apply for Verdian citizenship, please email your application to: citizenship@verdis.org\n\nInclude:\n- Full name and contact information\n- Brief statement of intent\n- Supporting documents');
+              }}
             >
               <Users className="w-5 h-5 mr-2" />
               Apply for Citizenship
@@ -63,7 +65,9 @@ const HeroSection = () => {
               variant="verdis-secondary" 
               size="xl" 
               className="group"
-              onClick={() => window.location.href = '#donations'}
+              onClick={() => {
+                alert('Donate to Verdis using Bitcoin\n\nBitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\nYour donation helps build our nation\'s infrastructure, institutions, and future.');
+              }}
             >
               <Heart className="w-5 h-5 mr-2" />
               Donate to Verdis
@@ -74,7 +78,9 @@ const HeroSection = () => {
               variant="verdis-outline" 
               size="xl" 
               className="group border-white text-white hover:bg-white hover:text-verdis-blue-dark"
-              onClick={() => window.location.href = '#citizenship'}
+              onClick={() => {
+                alert('Settlement Maps\n\nInteractive settlement maps are currently in development. Contact us at: settlements@verdis.org for early access and pioneer opportunities.');
+              }}
             >
               <MapPin className="w-5 h-5 mr-2" />
               Explore Settlement Maps

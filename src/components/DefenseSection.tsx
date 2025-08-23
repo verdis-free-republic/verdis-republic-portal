@@ -148,7 +148,9 @@ const DefenseSection = () => {
               variant="verdis-secondary" 
               size="xl" 
               className="group"
-              onClick={() => window.location.href = '#donations'}
+              onClick={() => {
+                alert('Support Defense Efforts\n\nBitcoin donations for defense:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\nYour support helps us invest in modern defense technology and security partnerships.');
+              }}
             >
               <Shield className="w-5 h-5 mr-2" />
               Support Defense Efforts
@@ -159,7 +161,9 @@ const DefenseSection = () => {
               variant="verdis-outline" 
               size="xl" 
               className="border-white text-white hover:bg-white hover:text-verdis-blue-dark group"
-              onClick={() => window.location.href = '#partnerships'}
+              onClick={() => {
+                alert('Partnership Opportunities\n\nFor defense partnerships and equipment support:\nEmail: defense@verdis.org\n\nWe welcome international cooperation and strategic alliances.');
+              }}
             >
               <Globe className="w-5 h-5 mr-2" />
               Partnership Opportunities

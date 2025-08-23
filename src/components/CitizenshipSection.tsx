@@ -85,7 +85,9 @@ const CitizenshipSection = () => {
                 <Button 
                   variant="verdis-outline" 
                   size="sm"
-                  onClick={() => window.location.href = '#citizenship'}
+                  onClick={() => {
+                    alert('Settlement Maps\n\nInteractive settlement maps are currently in development. Contact us at: settlements@verdis.org for early access and pioneer opportunities.');
+                  }}
                 >
                   Explore Maps
                 </Button>
@@ -101,7 +103,9 @@ const CitizenshipSection = () => {
               variant="verdis" 
               size="xl" 
               className="group"
-              onClick={() => window.location.href = '#citizenship'}
+              onClick={() => {
+                alert('Citizenship Application Form\n\nTo apply for Verdian citizenship, please email your application to: citizenship@verdis.org\n\nInclude:\n- Full name and contact information\n- Brief statement of intent\n- Supporting documents');
+              }}
             >
               <UserPlus className="w-5 h-5 mr-2" />
               Apply for Citizenship
@@ -112,7 +116,9 @@ const CitizenshipSection = () => {
               variant="verdis-secondary" 
               size="xl" 
               className="group"
-              onClick={() => window.location.href = '#citizenship'}
+              onClick={() => {
+                alert('Settlement Maps\n\nInteractive settlement maps are currently in development. Contact us at: settlements@verdis.org for early access and pioneer opportunities.');
+              }}
             >
               <Map className="w-5 h-5 mr-2" />
               View Settlement Maps

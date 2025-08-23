@@ -77,7 +77,7 @@ const DonationSection = () => {
                   variant="verdis-outline" 
                   className="group"
                   onClick={() => {
-                    alert('Donation functionality will be implemented with payment gateway');
+                    alert(`Donate to ${category.title}\n\nBitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\nYour donation supports: ${category.description}`);
                   }}
                 >
                   Donate Now
@@ -113,7 +113,7 @@ const DonationSection = () => {
                 size="xl" 
                 className="group text-xl px-12 py-6"
                 onClick={() => {
-                  alert('Donation functionality will be implemented with payment gateway');
+                  alert('Donate to Verdis using Bitcoin\n\nBitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\nYour donation helps build our nation\'s infrastructure, institutions, and future.');
                 }}
               >
                 <Heart className="w-6 h-6 mr-3" />
