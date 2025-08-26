@@ -14,7 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      citizenship_applications: {
+        Row: {
+          address: string
+          agree_terms: boolean
+          created_at: string
+          criminal_record: string
+          date_of_birth: string
+          education: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          membership_id: string
+          motivation: string
+          nationality: string
+          occupation: string
+          phone: string
+          skills: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          address: string
+          agree_terms?: boolean
+          created_at?: string
+          criminal_record: string
+          date_of_birth: string
+          education: string
+          email: string
+          first_name: string
+          id?: string
+          last_name: string
+          membership_id: string
+          motivation: string
+          nationality: string
+          occupation: string
+          phone: string
+          skills: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string
+          agree_terms?: boolean
+          created_at?: string
+          criminal_record?: string
+          date_of_birth?: string
+          education?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          membership_id?: string
+          motivation?: string
+          nationality?: string
+          occupation?: string
+          phone?: string
+          skills?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      donations: {
+        Row: {
+          category: string
+          clicked_at: string
+          email: string | null
+          id: string
+        }
+        Insert: {
+          category: string
+          clicked_at?: string
+          email?: string | null
+          id?: string
+        }
+        Update: {
+          category?: string
+          clicked_at?: string
+          email?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
