@@ -160,20 +160,20 @@ export const CitizenshipFormWizard = ({ isOpen, onClose }: CitizenshipFormWizard
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader className="space-y-6">
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto w-[95vw] sm:w-full">
+        <DialogHeader className="space-y-4 sm:space-y-6">
           <div className="text-center space-y-2">
-            <DialogTitle className="text-3xl font-bold font-montserrat text-verdis-blue">
+            <DialogTitle className="text-xl sm:text-3xl font-bold font-montserrat text-verdis-blue">
               Verdian Citizenship Application
             </DialogTitle>
-            <p className="text-muted-foreground">
+            <p className="text-sm sm:text-base text-muted-foreground px-4">
               Join the Free Republic of Verdis - A community built on freedom, unity, and opportunity
             </p>
           </div>
 
           {/* Progress Steps */}
-          <div className="flex justify-center">
-            <div className="flex items-center space-x-8">
+          <div className="flex justify-center overflow-x-auto px-4">
+            <div className="flex items-center space-x-4 sm:space-x-8 min-w-max">
               {steps.map((step, index) => {
                 const isCompleted = currentStep > step.id;
                 const isCurrent = currentStep === step.id;
@@ -184,7 +184,7 @@ export const CitizenshipFormWizard = ({ isOpen, onClose }: CitizenshipFormWizard
                     <div className="flex flex-col items-center space-y-2">
                       <div
                         className={cn(
-                          "flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300",
+                          "flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-all duration-300",
                           isCompleted
                             ? "bg-verdis-blue border-verdis-blue text-white"
                             : isCurrent
@@ -193,21 +193,21 @@ export const CitizenshipFormWizard = ({ isOpen, onClose }: CitizenshipFormWizard
                         )}
                       >
                         {isCompleted ? (
-                          <CheckCircle className="w-6 h-6" />
+                          <CheckCircle className="w-4 h-4 sm:w-6 sm:h-6" />
                         ) : (
-                          <StepIcon className="w-6 h-6" />
+                          <StepIcon className="w-4 h-4 sm:w-6 sm:h-6" />
                         )}
                       </div>
                       <div className="text-center">
                         <p
                           className={cn(
-                            "text-sm font-semibold",
+                            "text-xs sm:text-sm font-semibold",
                             isCurrent || isCompleted ? "text-verdis-blue" : "text-muted-foreground"
                           )}
                         >
                           {step.title}
                         </p>
-                        <p className="text-xs text-muted-foreground max-w-[120px]">
+                        <p className="text-xs text-muted-foreground max-w-[80px] sm:max-w-[120px] hidden sm:block">
                           {step.description}
                         </p>
                       </div>
@@ -215,7 +215,7 @@ export const CitizenshipFormWizard = ({ isOpen, onClose }: CitizenshipFormWizard
                     {index < steps.length - 1 && (
                       <div
                         className={cn(
-                          "w-16 h-0.5 mx-4 transition-all duration-300",
+                          "w-8 sm:w-16 h-0.5 mx-2 sm:mx-4 transition-all duration-300",
                           isCompleted ? "bg-verdis-blue" : "bg-border"
                         )}
                       />

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin, Heart, Users } from 'lucide-react';
 import danubeHero from '@/assets/danube-river-hero.jpg';
 import verdisFlag from '@/assets/verdis-flag.jpg';
+import { CitizenshipFormWizard } from '@/components/citizenship/CitizenshipFormWizard';
 
 const HeroSection = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -52,9 +55,7 @@ const HeroSection = () => {
               variant="verdis" 
               size="xl" 
               className="group"
-              onClick={() => {
-                alert('Citizenship Application Form\n\nTo apply for Verdian citizenship, please email your application to: citizenship@verdis.org\n\nInclude:\n- Full name and contact information\n- Brief statement of intent\n- Supporting documents');
-              }}
+              onClick={() => setIsFormOpen(true)}
             >
               <Users className="w-5 h-5 mr-2" />
               Apply for Citizenship
@@ -66,7 +67,7 @@ const HeroSection = () => {
               size="xl" 
               className="group"
               onClick={() => {
-                alert('Donate to Verdis using Bitcoin\n\nBitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\nYour donation helps build our nation\'s infrastructure, institutions, and future.');
+                alert('💰 Donate to Verdis using Bitcoin\n\n🔗 Bitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n💡 Your donation helps build our nation\'s infrastructure, institutions, and future.\n\n✨ Every contribution counts towards building the Free Republic of Verdis!');
               }}
             >
               <Heart className="w-5 h-5 mr-2" />
@@ -79,7 +80,7 @@ const HeroSection = () => {
               size="xl" 
               className="group border-white text-white hover:bg-white hover:text-verdis-blue-dark"
               onClick={() => {
-                alert('Settlement Maps\n\nInteractive settlement maps are currently in development. Contact us at: settlements@verdis.org for early access and pioneer opportunities.');
+                alert('🗺️ Interactive Settlement Maps\n\n🚧 Currently in Development\n\n🏡 Features coming soon:\n• Interactive land plots\n• Settlement planning tools\n• Pioneer opportunities\n• Community zones\n\n📧 Contact: settlements@verdis.org\n🎯 Get early access and exclusive pioneer opportunities!');
               }}
             >
               <MapPin className="w-5 h-5 mr-2" />
@@ -110,6 +111,12 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Citizenship Form Modal */}
+      <CitizenshipFormWizard 
+        isOpen={isFormOpen} 
+        onClose={() => setIsFormOpen(false)} 
+      />
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
