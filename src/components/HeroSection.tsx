@@ -67,7 +67,12 @@ const HeroSection = () => {
               size="xl" 
               className="group"
               onClick={() => {
-                alert('💰 Donate to Verdis using Bitcoin\n\n🔗 Bitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n💡 Your donation helps build our nation\'s infrastructure, institutions, and future.\n\n✨ Every contribution counts towards building the Free Republic of Verdis!');
+                const donationSection = document.querySelector('[data-section="donations"]');
+                if (donationSection) {
+                  donationSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  alert('💰 Donate to Verdis using Bitcoin\n\n🔗 Bitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n💡 Your donation helps build our nation\'s infrastructure, institutions, and future.\n\n✨ Every contribution counts towards building the Free Republic of Verdis!');
+                }
               }}
             >
               <Heart className="w-5 h-5 mr-2" />
@@ -80,11 +85,28 @@ const HeroSection = () => {
               size="xl" 
               className="group border-white text-white hover:bg-white hover:text-verdis-blue-dark"
               onClick={() => {
-                alert('🗺️ Interactive Settlement Maps\n\n🚧 Currently in Development\n\n🏡 Features coming soon:\n• Interactive land plots\n• Settlement planning tools\n• Pioneer opportunities\n• Community zones\n\n📧 Contact: settlements@verdis.org\n🎯 Get early access and exclusive pioneer opportunities!');
+                const settlementSection = document.querySelector('[data-section="settlements"]');
+                if (settlementSection) {
+                  settlementSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  alert('🗺️ Interactive Settlement Maps\n\n🚧 Currently in Development\n\n🏡 Features coming soon:\n• Interactive land plots\n• Settlement planning tools\n• Pioneer opportunities\n• Community zones\n\n📧 Contact: settlements@verdis.org\n🎯 Get early access and exclusive pioneer opportunities!');
+                }
               }}
             >
               <MapPin className="w-5 h-5 mr-2" />
               Explore Settlement Maps
+            </Button>
+          </div>
+
+          {/* Admin Link */}
+          <div className="mt-8">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-white/60 hover:text-white text-sm underline"
+              onClick={() => window.location.href = '/admin'}
+            >
+              Admin Dashboard
             </Button>
           </div>
 

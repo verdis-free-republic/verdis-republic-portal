@@ -2,8 +2,21 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Heart, Building, GraduationCap, Shield, ArrowRight, TrendingUp } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const DonationSection = () => {
+  const trackDonation = async (category: string) => {
+    try {
+      await supabase
+        .from('donations')
+        .insert({
+          category,
+        });
+    } catch (error) {
+      console.error('Error tracking donation:', error);
+    }
+  };
+
   const donationCategories = [
     {
       title: "General Development",
@@ -76,7 +89,9 @@ const DonationSection = () => {
                 <Button 
                   variant="verdis-outline" 
                   className="group"
-                  onClick={() => {
+                  onClick={async () => {
+                    await trackDonation(category.title);
+                    
                     const message = `Support ${category.title}\n\n` +
                       `💰 Bitcoin Address:\n` +
                       `bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n` +
@@ -119,7 +134,9 @@ const DonationSection = () => {
                 variant="verdis-secondary" 
                 size="xl" 
                 className="group text-xl px-12 py-6"
-                onClick={() => {
+                onClick={async () => {
+                  await trackDonation('General Donation');
+                  
                   const message = `Donate to the Free Republic of Verdis\n\n` +
                     `💰 Bitcoin Address:\n` +
                     `bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n` +

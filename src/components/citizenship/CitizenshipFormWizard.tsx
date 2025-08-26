@@ -10,6 +10,8 @@ import { ApplicationSummary } from './ApplicationSummary';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -60,6 +62,7 @@ export const CitizenshipFormWizard = ({ isOpen, onClose }: CitizenshipFormWizard
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedData, setSubmittedData] = useState<FormData | null>(null);
   const [membershipId, setMembershipId] = useState<string>("");
+  const { toast } = useToast();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -95,11 +98,57 @@ export const CitizenshipFormWizard = ({ isOpen, onClose }: CitizenshipFormWizard
     return `VR-${positiveHash.toString().padStart(8, '0')}`;
   };
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     const id = generateMembershipId(data);
     setMembershipId(id);
-    setSubmittedData(data);
-    setIsSubmitted(true);
+    
+    try {
+      // Save to Supabase
+      const { error } = await supabase
+        .from('citizenship_applications')
+        .insert({
+          membership_id: id,
+          first_name: data.firstName,
+          last_name: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          date_of_birth: data.dateOfBirth,
+          nationality: data.nationality,
+          address: data.address,
+          occupation: data.occupation,
+          education: data.education,
+          skills: data.skills,
+          motivation: data.motivation,
+          criminal_record: data.criminalRecord,
+          agree_terms: data.agreeTerms,
+        });
+
+      if (error) {
+        console.error('Error saving application:', error);
+        toast({
+          title: "Application Error",
+          description: "There was an error submitting your application. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Application Submitted!",
+        description: "Your citizenship application has been successfully submitted.",
+        variant: "default",
+      });
+
+      setSubmittedData(data);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      toast({
+        title: "Application Error",
+        description: "There was an unexpected error. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const nextStep = async () => {
@@ -111,7 +160,7 @@ export const CitizenshipFormWizard = ({ isOpen, onClose }: CitizenshipFormWizard
         setCurrentStep(currentStep + 1);
       } else {
         const formData = form.getValues();
-        onSubmit(formData);
+        await onSubmit(formData);
       }
     }
   };
