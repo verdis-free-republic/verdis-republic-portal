@@ -17,8 +17,11 @@ import {
   RefreshCw,
   Download,
   Eye,
-  Filter
+  Filter,
+  FileText,
+  Shield
 } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -50,34 +53,56 @@ interface Donation {
   clicked_at: string;
 }
 
+interface GovernmentApplication {
+  id: string;
+  position_id: string;
+  position_title: string;
+  department: string;
+  applicant_name: string;
+  applicant_email: string;
+  applicant_contact?: string;
+  qualifications: string;
+  experience: string;
+  vision: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
+
 const AdminDashboard = () => {
   const [applications, setApplications] = useState<CitizenshipApplication[]>([]);
   const [donations, setDonations] = useState<Donation[]>([]);
+  const [governmentApplications, setGovernmentApplications] = useState<GovernmentApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedApplication, setSelectedApplication] = useState<CitizenshipApplication | null>(null);
+  const [selectedGovApplication, setSelectedGovApplication] = useState<GovernmentApplication | null>(null);
   const { toast } = useToast();
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      // Fetch applications
-      const { data: applicationsData, error: appError } = await supabase
-        .from('citizenship_applications')
-        .select('*')
-        .order('created_at', { ascending: false });
-      
-      if (appError) throw appError;
-      
-      // Fetch donations
-      const { data: donationsData, error: donError } = await supabase
-        .from('donations')
-        .select('*')
-        .order('clicked_at', { ascending: false });
-      
-      if (donError) throw donError;
-      
-      setApplications(applicationsData || []);
-      setDonations(donationsData || []);
+      const [applicationsResult, donationsResult, govApplicationsResult] = await Promise.all([
+        supabase
+          .from('citizenship_applications')
+          .select('*')
+          .order('created_at', { ascending: false }),
+        supabase
+          .from('donations')
+          .select('*')
+          .order('clicked_at', { ascending: false }),
+        supabase
+          .from('government_applications')
+          .select('*')
+          .order('created_at', { ascending: false })
+      ]);
+
+      if (applicationsResult.error) throw applicationsResult.error;
+      if (donationsResult.error) throw donationsResult.error;
+      if (govApplicationsResult.error) throw govApplicationsResult.error;
+
+      setApplications(applicationsResult.data || []);
+      setDonations(donationsResult.data || []);
+      setGovernmentApplications(govApplicationsResult.data || []);
     } catch (error) {
       console.error('Error fetching data:', error);
       toast({
@@ -120,22 +145,36 @@ const AdminDashboard = () => {
       )
       .subscribe();
 
+    const govApplicationsChannel = supabase
+      .channel('government-applications-changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'government_applications' },
+        () => {
+          fetchData();
+        }
+      )
+      .subscribe();
+
     return () => {
       supabase.removeChannel(applicationsChannel);
       supabase.removeChannel(donationsChannel);
+      supabase.removeChannel(govApplicationsChannel);
     };
   }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'secondary';
+      case 'under_review':
+        return 'secondary';
       case 'approved':
-        return 'bg-green-100 text-green-800';
+        return 'default';
       case 'rejected':
-        return 'bg-red-100 text-red-800';
+        return 'destructive';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'outline';
     }
   };
 
@@ -159,6 +198,31 @@ const AdminDashboard = () => {
       toast({
         title: "Error",
         description: "Failed to update application status",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const updateGovernmentApplicationStatus = async (id: string, status: string) => {
+    try {
+      const { error } = await supabase
+        .from('government_applications')
+        .update({ status })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Status Updated",
+        description: `Government application status changed to ${status}`,
+      });
+
+      fetchData();
+    } catch (error) {
+      console.error('Error updating status:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update government application status",
         variant: "destructive",
       });
     }
@@ -253,10 +317,14 @@ const AdminDashboard = () => {
 
         {/* Main Content */}
         <Tabs defaultValue="applications" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="applications" className="flex items-center gap-2">
               <Users className="w-4 h-4" />
               Citizenship Applications
+            </TabsTrigger>
+            <TabsTrigger value="government" className="flex items-center gap-2">
+              <Shield className="w-4 h-4" />
+              Government Applications
             </TabsTrigger>
             <TabsTrigger value="donations" className="flex items-center gap-2">
               <Heart className="w-4 h-4" />
@@ -292,7 +360,7 @@ const AdminDashboard = () => {
                                 <h4 className="font-semibold">
                                   {app.first_name} {app.last_name}
                                 </h4>
-                                <Badge className={getStatusColor(app.status)}>
+                               <Badge variant={getStatusColor(app.status)}>
                                   {app.status}
                                 </Badge>
                               </div>
@@ -328,7 +396,7 @@ const AdminDashboard = () => {
                     <CardHeader>
                       <CardTitle className="flex items-center justify-between">
                         Application Details
-                        <Badge className={getStatusColor(selectedApplication.status)}>
+                        <Badge variant={getStatusColor(selectedApplication.status)}>
                           {selectedApplication.status}
                         </Badge>
                       </CardTitle>
@@ -441,6 +509,158 @@ const AdminDashboard = () => {
                     <CardContent className="flex items-center justify-center h-[600px] text-muted-foreground">
                       Select an application to view details
                     </CardContent>
+                  </Card>
+                )}
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="government" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Government Applications List */}
+              <div className="lg:col-span-1">
+                <Card className="h-[600px]">
+                  <CardHeader>
+                    <CardTitle className="text-lg">Recent Government Applications</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <ScrollArea className="h-[520px]">
+                      <div className="space-y-2 p-4">
+                        {governmentApplications.map((app) => (
+                          <Card 
+                            key={app.id}
+                            className={`p-4 cursor-pointer transition-all hover:shadow-md ${
+                              selectedGovApplication?.id === app.id ? 'ring-2 ring-primary' : ''
+                            }`}
+                            onClick={() => setSelectedGovApplication(app)}
+                          >
+                            <div className="space-y-2">
+                              <div className="flex justify-between items-start">
+                                <h4 className="font-semibold text-sm">{app.position_title}</h4>
+                                <Badge 
+                                  variant={getStatusColor(app.status)}
+                                  className="text-xs"
+                                >
+                                  {app.status}
+                                </Badge>
+                              </div>
+                              <p className="text-sm text-muted-foreground">{app.department}</p>
+                              <p className="text-xs text-muted-foreground">{app.applicant_name}</p>
+                              <p className="text-xs text-muted-foreground">
+                                {formatDate(app.created_at)}
+                              </p>
+                            </div>
+                          </Card>
+                        ))}
+                        {governmentApplications.length === 0 && (
+                          <div className="text-center text-muted-foreground py-8">
+                            No government applications yet
+                          </div>
+                        )}
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Government Application Details */}
+              <div className="lg:col-span-2">
+                {selectedGovApplication ? (
+                  <Card className="h-[600px]">
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <CardTitle>{selectedGovApplication.position_title} Application</CardTitle>
+                          <p className="text-muted-foreground">{selectedGovApplication.department}</p>
+                        </div>
+                        <Badge variant={getStatusColor(selectedGovApplication.status)}>
+                          {selectedGovApplication.status}
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <ScrollArea className="h-[450px]">
+                        <div className="space-y-6">
+                          {/* Applicant Information */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-semibold mb-2">Applicant Details</h4>
+                              <div className="space-y-2 text-sm">
+                                <p><span className="font-medium">Name:</span> {selectedGovApplication.applicant_name}</p>
+                                <p><span className="font-medium">Email:</span> {selectedGovApplication.applicant_email}</p>
+                                {selectedGovApplication.applicant_contact && (
+                                  <p><span className="font-medium">Contact:</span> {selectedGovApplication.applicant_contact}</p>
+                                )}
+                                <p><span className="font-medium">Applied:</span> {formatDate(selectedGovApplication.created_at)}</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <Separator />
+
+                          {/* Application Content */}
+                          <div className="space-y-4">
+                            <div>
+                              <h4 className="font-semibold mb-2">Qualifications</h4>
+                              <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                                {selectedGovApplication.qualifications}
+                              </p>
+                            </div>
+
+                            <div>
+                              <h4 className="font-semibold mb-2">Relevant Experience</h4>
+                              <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                                {selectedGovApplication.experience}
+                              </p>
+                            </div>
+
+                            <div>
+                              <h4 className="font-semibold mb-2">Vision for the Role</h4>
+                              <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                                {selectedGovApplication.vision}
+                              </p>
+                            </div>
+                          </div>
+
+                          <Separator />
+
+                          {/* Action Buttons */}
+                          <div className="flex gap-2 flex-wrap">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => updateGovernmentApplicationStatus(selectedGovApplication.id, 'under_review')}
+                              disabled={selectedGovApplication.status === 'under_review'}
+                            >
+                              Under Review
+                            </Button>
+                            <Button
+                              variant="default"
+                              size="sm"
+                              onClick={() => updateGovernmentApplicationStatus(selectedGovApplication.id, 'approved')}
+                              disabled={selectedGovApplication.status === 'approved'}
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => updateGovernmentApplicationStatus(selectedGovApplication.id, 'rejected')}
+                              disabled={selectedGovApplication.status === 'rejected'}
+                            >
+                              Reject
+                            </Button>
+                          </div>
+                        </div>
+                      </ScrollArea>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <Card className="h-[600px] flex items-center justify-center">
+                    <div className="text-center text-muted-foreground">
+                      <FileText className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                      <p>Select a government application to view details</p>
+                    </div>
                   </Card>
                 )}
               </div>

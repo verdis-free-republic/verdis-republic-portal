@@ -3,8 +3,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { Users, Crown, Scale, Shield, Building, UserPlus, Mail } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface GovernmentStructureDialogProps {
   isOpen: boolean;
@@ -14,6 +18,15 @@ interface GovernmentStructureDialogProps {
 const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialogProps) => {
   const { toast } = useToast();
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
+  const [showApplicationForm, setShowApplicationForm] = useState(false);
+  const [applicationData, setApplicationData] = useState({
+    name: '',
+    email: '',
+    contact: '',
+    qualifications: '',
+    experience: '',
+    vision: ''
+  });
 
   const governmentPositions = [
     {
@@ -79,42 +92,58 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
   ];
 
   const handleApplyForPosition = (position: any) => {
-    const applicationEmail = `applications@verdis.org`;
-    const subject = `Application for ${position.title}`;
-    const body = `Dear Verdian Government Selection Committee,
+    setSelectedPosition(position.id);
+    setShowApplicationForm(true);
+  };
 
-I am writing to express my interest in applying for the position of ${position.title} within the ${position.department}.
+  const submitApplication = async (position: any) => {
+    if (!applicationData.name || !applicationData.email || !applicationData.qualifications || !applicationData.experience || !applicationData.vision) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
 
-Position Details:
-- Title: ${position.title}
-- Department: ${position.department}
-- Term: ${position.term}
+    try {
+      const { error } = await supabase
+        .from('government_applications')
+        .insert({
+          position_id: position.id,
+          position_title: position.title,
+          department: position.department,
+          applicant_name: applicationData.name,
+          applicant_email: applicationData.email,
+          applicant_contact: applicationData.contact,
+          qualifications: applicationData.qualifications,
+          experience: applicationData.experience,
+          vision: applicationData.vision
+        });
 
-I believe I meet the requirements: ${position.requirements}
+      if (error) throw error;
 
-Please find my qualifications below:
-[Please describe your relevant experience and qualifications]
-
-I am committed to serving the Free Republic of Verdis and contributing to our nation's growth and development.
-
-Thank you for considering my application.
-
-Best regards,
-[Your Name]
-[Your Contact Information]
-[Your Current Role/Background]`;
-
-    // Copy email to clipboard
-    navigator.clipboard.writeText(applicationEmail);
-    
-    // Create mailto link
-    const mailtoLink = `mailto:${applicationEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailtoLink);
-    
-    toast({
-      title: "Application Email Prepared!",
-      description: `Email address copied to clipboard. Application template opened in your email client.`,
-    });
+      toast({
+        title: "Application Submitted!",
+        description: `Your application for ${position.title} has been submitted successfully.`,
+      });
+      
+      setShowApplicationForm(false);
+      setApplicationData({
+        name: '',
+        email: '',
+        contact: '',
+        qualifications: '',
+        experience: '',
+        vision: ''
+      });
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your application. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -235,6 +264,105 @@ Best regards,
               </div>
             </div>
           </Card>
+
+          {/* Application Form */}
+          {showApplicationForm && (
+            <Card className="verdis-card p-6 bg-accent/10 border-accent/20">
+              <h4 className="font-semibold font-montserrat text-verdis-blue mb-4">
+                Application Form - {governmentPositions.find(p => p.id === selectedPosition)?.title}
+              </h4>
+              
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="name" className="font-montserrat text-verdis-blue">Full Name *</Label>
+                    <Input
+                      id="name"
+                      value={applicationData.name}
+                      onChange={(e) => setApplicationData(prev => ({ ...prev, name: e.target.value }))}
+                      placeholder="Your full name"
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="email" className="font-montserrat text-verdis-blue">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={applicationData.email}
+                      onChange={(e) => setApplicationData(prev => ({ ...prev, email: e.target.value }))}
+                      placeholder="your.email@example.com"
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <Label htmlFor="contact" className="font-montserrat text-verdis-blue">Contact Information</Label>
+                  <Input
+                    id="contact"
+                    value={applicationData.contact}
+                    onChange={(e) => setApplicationData(prev => ({ ...prev, contact: e.target.value }))}
+                    placeholder="Phone number or other contact"
+                    className="mt-1"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="qualifications" className="font-montserrat text-verdis-blue">Qualifications *</Label>
+                  <Textarea
+                    id="qualifications"
+                    value={applicationData.qualifications}
+                    onChange={(e) => setApplicationData(prev => ({ ...prev, qualifications: e.target.value }))}
+                    placeholder="Describe your educational background and relevant qualifications"
+                    className="mt-1"
+                    rows={3}
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="experience" className="font-montserrat text-verdis-blue">Relevant Experience *</Label>
+                  <Textarea
+                    id="experience"
+                    value={applicationData.experience}
+                    onChange={(e) => setApplicationData(prev => ({ ...prev, experience: e.target.value }))}
+                    placeholder="Describe your relevant work experience and achievements"
+                    className="mt-1"
+                    rows={3}
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="vision" className="font-montserrat text-verdis-blue">Vision for the Role *</Label>
+                  <Textarea
+                    id="vision"
+                    value={applicationData.vision}
+                    onChange={(e) => setApplicationData(prev => ({ ...prev, vision: e.target.value }))}
+                    placeholder="Describe your vision and goals for this position"
+                    className="mt-1"
+                    rows={3}
+                  />
+                </div>
+                
+                <div className="flex gap-3 pt-4">
+                  <Button
+                    variant="verdis-outline"
+                    onClick={() => setShowApplicationForm(false)}
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="verdis"
+                    onClick={() => submitApplication(governmentPositions.find(p => p.id === selectedPosition))}
+                    className="flex-1"
+                  >
+                    Submit Application
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          )}
 
           <div className="flex justify-end">
             <Button variant="verdis-outline" onClick={onClose}>

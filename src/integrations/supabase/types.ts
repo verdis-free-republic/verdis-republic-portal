@@ -98,6 +98,54 @@ export type Database = {
         }
         Relationships: []
       }
+      government_applications: {
+        Row: {
+          applicant_contact: string | null
+          applicant_email: string
+          applicant_name: string
+          created_at: string
+          department: string
+          experience: string
+          id: string
+          position_id: string
+          position_title: string
+          qualifications: string
+          status: string
+          updated_at: string
+          vision: string
+        }
+        Insert: {
+          applicant_contact?: string | null
+          applicant_email: string
+          applicant_name: string
+          created_at?: string
+          department: string
+          experience: string
+          id?: string
+          position_id: string
+          position_title: string
+          qualifications: string
+          status?: string
+          updated_at?: string
+          vision: string
+        }
+        Update: {
+          applicant_contact?: string | null
+          applicant_email?: string
+          applicant_name?: string
+          created_at?: string
+          department?: string
+          experience?: string
+          id?: string
+          position_id?: string
+          position_title?: string
+          qualifications?: string
+          status?: string
+          updated_at?: string
+          vision?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
