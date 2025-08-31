@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Heart, Building, GraduationCap, Shield, ArrowRight, TrendingUp } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import DonationDialog from './DonationDialog';
 
 const DonationSection = () => {
+  const [donationDialog, setDonationDialog] = useState<{
+    isOpen: boolean;
+    category: string;
+    description: string;
+  }>({ isOpen: false, category: '', description: '' });
+
   const trackDonation = async (category: string) => {
     try {
       await supabase
@@ -45,7 +52,7 @@ const DonationSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background" data-section="donations">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
@@ -57,7 +64,7 @@ const DonationSection = () => {
           <div className="inline-flex items-center bg-primary/20 px-6 py-3 rounded-full mb-6">
             <TrendingUp className="w-5 h-5 text-primary mr-2" />
             <span className="font-semibold font-montserrat text-verdis-blue-dark">
-              We have already raised over $500,000 for infrastructure and development
+              We have already raised over $50,000 for infrastructure and development
             </span>
           </div>
           
@@ -91,15 +98,11 @@ const DonationSection = () => {
                   className="group"
                   onClick={async () => {
                     await trackDonation(category.title);
-                    
-                    const message = `Support ${category.title}\n\n` +
-                      `💰 Bitcoin Address:\n` +
-                      `bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n` +
-                      `📋 Purpose: ${category.description}\n\n` +
-                      `Thank you for supporting the Free Republic of Verdis!`;
-                    
-                    navigator.clipboard.writeText('bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47');
-                    alert(message + '\n\n✅ Bitcoin address copied to clipboard!');
+                    setDonationDialog({
+                      isOpen: true,
+                      category: category.title,
+                      description: category.description
+                    });
                   }}
                 >
                   Donate Now
@@ -136,19 +139,11 @@ const DonationSection = () => {
                 className="group text-xl px-12 py-6"
                 onClick={async () => {
                   await trackDonation('General Donation');
-                  
-                  const message = `Donate to the Free Republic of Verdis\n\n` +
-                    `💰 Bitcoin Address:\n` +
-                    `bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n` +
-                    `🏛️ Your donation supports:\n` +
-                    `• Infrastructure development\n` +
-                    `• Government institutions\n` +
-                    `• Citizen services\n` +
-                    `• Nation-building initiatives\n\n` +
-                    `Thank you for helping build Verdis!`;
-                  
-                  navigator.clipboard.writeText('bc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47');
-                  alert(message + '\n\n✅ Bitcoin address copied to clipboard!');
+                  setDonationDialog({
+                    isOpen: true,
+                    category: 'General Donation',
+                    description: 'Support Verdis with a flexible donation that allows us to direct funds where they\'re needed most'
+                  });
                 }}
               >
                 <Heart className="w-6 h-6 mr-3" />
@@ -167,7 +162,7 @@ const DonationSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           <div className="text-center">
             <div className="text-4xl font-bold font-montserrat text-primary mb-2">
-              $500K+
+              $50K+
             </div>
             <p className="font-lora text-muted-foreground">Total Funds Raised</p>
           </div>
@@ -185,6 +180,14 @@ const DonationSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Donation Dialog */}
+      <DonationDialog 
+        isOpen={donationDialog.isOpen}
+        onClose={() => setDonationDialog({ ...donationDialog, isOpen: false })}
+        category={donationDialog.category}
+        description={donationDialog.description}
+      />
     </section>
   );
 };

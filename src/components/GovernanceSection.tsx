@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Vote, Users, Scale, ArrowRight } from 'lucide-react';
+import GovernmentStructureDialog from './GovernmentStructureDialog';
 
 const GovernanceSection = () => {
+  const [isGovernmentDialogOpen, setIsGovernmentDialogOpen] = useState(false);
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-6">
@@ -75,7 +78,7 @@ const GovernanceSection = () => {
               variant="verdis" 
               size="lg" 
               className="group"
-              onClick={() => window.location.href = '#government'}
+              onClick={() => setIsGovernmentDialogOpen(true)}
             >
               Government Structure
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -83,6 +86,12 @@ const GovernanceSection = () => {
           </Card>
         </div>
       </div>
+
+      {/* Government Structure Dialog */}
+      <GovernmentStructureDialog 
+        isOpen={isGovernmentDialogOpen}
+        onClose={() => setIsGovernmentDialogOpen(false)}
+      />
     </section>
   );
 };

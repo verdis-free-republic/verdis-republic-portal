@@ -70,8 +70,6 @@ const HeroSection = () => {
                 const donationSection = document.querySelector('[data-section="donations"]');
                 if (donationSection) {
                   donationSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  alert('💰 Donate to Verdis using Bitcoin\n\n🔗 Bitcoin Address:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\n💡 Your donation helps build our nation\'s infrastructure, institutions, and future.\n\n✨ Every contribution counts towards building the Free Republic of Verdis!');
                 }
               }}
             >
@@ -88,8 +86,6 @@ const HeroSection = () => {
                 const settlementSection = document.querySelector('[data-section="settlements"]');
                 if (settlementSection) {
                   settlementSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  alert('🗺️ Interactive Settlement Maps\n\n🚧 Currently in Development\n\n🏡 Features coming soon:\n• Interactive land plots\n• Settlement planning tools\n• Pioneer opportunities\n• Community zones\n\n📧 Contact: settlements@verdis.org\n🎯 Get early access and exclusive pioneer opportunities!');
                 }
               }}
             >
@@ -114,13 +110,13 @@ const HeroSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/20">
             <div className="text-center">
               <div className="text-4xl font-bold font-montserrat text-primary mb-2">
-                $500K+
+                $50K+
               </div>
-              <p className="text-white/80 font-lora">Raised for Development</p>
+              <p className="text-white/80 font-lora">Total Funds Raised</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold font-montserrat text-primary mb-2">
-                1000+
+                500+
               </div>
               <p className="text-white/80 font-lora">Citizenship Applications</p>
             </div>

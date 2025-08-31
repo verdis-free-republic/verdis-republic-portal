@@ -10,7 +10,7 @@ const CitizenshipSection = () => {
   const [isMapDialogOpen, setIsMapDialogOpen] = useState(false);
 
   return (
-    <section className="py-20 bg-verdis-blue-light">
+    <section className="py-20 bg-verdis-blue-light" data-section="settlements">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
@@ -130,7 +130,7 @@ const CitizenshipSection = () => {
           </div>
           
           <p className="text-sm font-lora text-verdis-blue/60">
-            Over 1,000 applications received. Join the growing Verdian community today.
+            Over 500 applications received. Join the growing Verdian community today.
           </p>
         </div>
       </div>
@@ -191,25 +191,30 @@ const CitizenshipSection = () => {
               </Card>
             </div>
 
-            <Card className="verdis-card p-6 bg-blue-50 border-blue-200">
+            <Card className="verdis-card p-6 bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20">
               <div className="text-center">
-                <h4 className="font-semibold font-montserrat text-verdis-blue mb-2">
+                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Map className="w-8 h-8 text-white" />
+                </div>
+                <h4 className="text-lg font-semibold font-montserrat text-verdis-blue mb-3">
                   Early Access Program
                 </h4>
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-sm font-lora text-muted-foreground mb-6">
                   The interactive settlement mapping system is currently in development. 
                   Citizens and early supporters get priority access to beta testing and settlement opportunities.
                 </p>
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-verdis-blue">
-                    Contact our Settlement Planning Team:
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    📧 settlements@verdis.org
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    🗺️ Request access to beta maps and pioneer opportunities
-                  </p>
+                <div className="bg-white/50 rounded-lg p-4 mb-4">
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold text-verdis-blue">
+                      Contact our Settlement Planning Team:
+                    </p>
+                    <p className="text-sm font-mono text-verdis-blue">
+                      📧 settlements@verdis.org
+                    </p>
+                    <p className="text-xs font-lora text-muted-foreground">
+                      🗺️ Request access to beta maps and pioneer opportunities
+                    </p>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -220,7 +225,28 @@ const CitizenshipSection = () => {
                 size="lg"
                 onClick={() => {
                   navigator.clipboard.writeText('settlements@verdis.org');
-                  alert('Email address copied to clipboard!\n\nContact settlements@verdis.org for early access to our settlement mapping system.');
+                  // Create a professional mailto link
+                  const subject = "Early Access Request - Settlement Mapping System";
+                  const body = `Dear Settlement Planning Team,
+
+I am interested in requesting early access to the Verdis Settlement Mapping System.
+
+Please provide me with information about:
+• Beta testing opportunities
+• Pioneer settlement programs
+• Available land plots along the Danube River
+• Community development initiatives
+
+I am a [Verdian Citizen/Interested Applicant] and would like to contribute to the development of our nation.
+
+Thank you for your time and consideration.
+
+Best regards,
+[Your Name]
+[Your Contact Information]`;
+                  
+                  const mailtoLink = `mailto:settlements@verdis.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                  window.open(mailtoLink);
                 }}
                 className="group"
               >
