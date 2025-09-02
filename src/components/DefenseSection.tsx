@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Shield, Users, Globe, ArrowRight, Lock } from 'lucide-react';
+import DefenseDialog from '@/components/DefenseDialog';
 
 const DefenseSection = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogType, setDialogType] = useState<'support' | 'partnership'>('support');
+
+  const handleSupportClick = () => {
+    setDialogType('support');
+    setDialogOpen(true);
+  };
+
+  const handlePartnershipClick = () => {
+    setDialogType('partnership');
+    setDialogOpen(true);
+  };
+
   return (
     <section className="py-20 bg-secondary">
       <div className="container mx-auto px-6">
@@ -148,9 +162,7 @@ const DefenseSection = () => {
               variant="verdis-secondary" 
               size="xl" 
               className="group"
-              onClick={() => {
-                alert('Support Defense Efforts\n\nBitcoin donations for defense:\nbc1p53vpr7getgck5d4xva8xjgm7kldkwd7m0l837v7vv79j8vutxn3s3uux47\n\nYour support helps us invest in modern defense technology and security partnerships.');
-              }}
+              onClick={handleSupportClick}
             >
               <Shield className="w-5 h-5 mr-2" />
               Support Defense Efforts
@@ -161,9 +173,7 @@ const DefenseSection = () => {
               variant="verdis-outline" 
               size="xl" 
               className="border-white text-white hover:bg-white hover:text-verdis-blue-dark group"
-              onClick={() => {
-                alert('Partnership Opportunities\n\nFor defense partnerships and equipment support:\nEmail: defense@verdis.org\n\nWe welcome international cooperation and strategic alliances.');
-              }}
+              onClick={handlePartnershipClick}
             >
               <Globe className="w-5 h-5 mr-2" />
               Partnership Opportunities
@@ -171,6 +181,12 @@ const DefenseSection = () => {
           </div>
         </div>
       </div>
+
+      <DefenseDialog 
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        type={dialogType}
+      />
     </section>
   );
 };

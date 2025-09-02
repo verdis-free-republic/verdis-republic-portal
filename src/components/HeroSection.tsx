@@ -94,17 +94,6 @@ const HeroSection = () => {
             </Button>
           </div>
 
-          {/* Admin Link */}
-          <div className="mt-8">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-white/60 hover:text-white text-sm underline"
-              onClick={() => window.location.href = '/admin'}
-            >
-              Admin Dashboard
-            </Button>
-          </div>
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/20">
