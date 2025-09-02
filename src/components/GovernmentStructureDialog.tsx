@@ -19,6 +19,7 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
   const { toast } = useToast();
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [showApplicationForm, setShowApplicationForm] = useState(false);
+  const [applicationPosition, setApplicationPosition] = useState<any>(null);
   const [applicationData, setApplicationData] = useState({
     name: '',
     email: '',
@@ -112,11 +113,11 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
   ];
 
   const handleApplyForPosition = (position: any) => {
-    setSelectedPosition(position.id);
+    setApplicationPosition(position);
     setShowApplicationForm(true);
   };
 
-  const submitApplication = async (position: any) => {
+  const submitApplication = async () => {
     if (!applicationData.name || !applicationData.email || !applicationData.qualifications || !applicationData.experience || !applicationData.vision) {
       toast({
         title: "Missing Information",
@@ -130,9 +131,9 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
       const { error } = await supabase
         .from('government_applications')
         .insert({
-          position_id: position.id,
-          position_title: position.title,
-          department: position.department,
+          position_id: applicationPosition.id,
+          position_title: applicationPosition.title,
+          department: applicationPosition.department,
           applicant_name: applicationData.name,
           applicant_email: applicationData.email,
           applicant_contact: applicationData.contact,
@@ -145,10 +146,11 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
 
       toast({
         title: "Application Submitted!",
-        description: `Your application for ${position.title} has been submitted successfully.`,
+        description: `Your application for ${applicationPosition.title} has been submitted successfully.`,
       });
       
       setShowApplicationForm(false);
+      setApplicationPosition(null);
       setApplicationData({
         name: '',
         email: '',
@@ -167,7 +169,8 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-montserrat text-verdis-blue flex items-center gap-2">
@@ -285,105 +288,6 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
             </div>
           </Card>
 
-          {/* Application Form */}
-          {showApplicationForm && (
-            <Card className="verdis-card p-6 bg-accent/10 border-accent/20">
-              <h4 className="font-semibold font-montserrat text-verdis-blue mb-4">
-                Application Form - {governmentPositions.find(p => p.id === selectedPosition)?.title}
-              </h4>
-              
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name" className="font-montserrat text-verdis-blue">Full Name *</Label>
-                    <Input
-                      id="name"
-                      value={applicationData.name}
-                      onChange={(e) => setApplicationData(prev => ({ ...prev, name: e.target.value }))}
-                      placeholder="Your full name"
-                      className="mt-1"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="email" className="font-montserrat text-verdis-blue">Email *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={applicationData.email}
-                      onChange={(e) => setApplicationData(prev => ({ ...prev, email: e.target.value }))}
-                      placeholder="your.email@example.com"
-                      className="mt-1"
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <Label htmlFor="contact" className="font-montserrat text-verdis-blue">Contact Information</Label>
-                  <Input
-                    id="contact"
-                    value={applicationData.contact}
-                    onChange={(e) => setApplicationData(prev => ({ ...prev, contact: e.target.value }))}
-                    placeholder="Phone number or other contact"
-                    className="mt-1"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="qualifications" className="font-montserrat text-verdis-blue">Qualifications *</Label>
-                  <Textarea
-                    id="qualifications"
-                    value={applicationData.qualifications}
-                    onChange={(e) => setApplicationData(prev => ({ ...prev, qualifications: e.target.value }))}
-                    placeholder="Describe your educational background and relevant qualifications"
-                    className="mt-1"
-                    rows={3}
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="experience" className="font-montserrat text-verdis-blue">Relevant Experience *</Label>
-                  <Textarea
-                    id="experience"
-                    value={applicationData.experience}
-                    onChange={(e) => setApplicationData(prev => ({ ...prev, experience: e.target.value }))}
-                    placeholder="Describe your relevant work experience and achievements"
-                    className="mt-1"
-                    rows={3}
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="vision" className="font-montserrat text-verdis-blue">Vision for the Role *</Label>
-                  <Textarea
-                    id="vision"
-                    value={applicationData.vision}
-                    onChange={(e) => setApplicationData(prev => ({ ...prev, vision: e.target.value }))}
-                    placeholder="Describe your vision and goals for this position"
-                    className="mt-1"
-                    rows={3}
-                  />
-                </div>
-                
-                <div className="flex gap-3 pt-4">
-                  <Button
-                    variant="verdis-outline"
-                    onClick={() => setShowApplicationForm(false)}
-                    className="flex-1"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    variant="verdis"
-                    onClick={() => submitApplication(governmentPositions.find(p => p.id === selectedPosition))}
-                    className="flex-1"
-                  >
-                    Submit Application
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          )}
-
           <div className="flex justify-end">
             <Button variant="verdis-outline" onClick={onClose}>
               Close
@@ -392,6 +296,125 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
         </div>
       </DialogContent>
     </Dialog>
+
+    {/* Separate Application Form Dialog */}
+    <Dialog open={showApplicationForm} onOpenChange={() => setShowApplicationForm(false)}>
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-montserrat text-verdis-blue flex items-center gap-2">
+            <UserPlus className="w-6 h-6 text-primary" />
+            Apply for {applicationPosition?.title}
+          </DialogTitle>
+        </DialogHeader>
+        
+        <div className="space-y-6">
+          <Card className="verdis-card p-6 bg-primary/5 border-primary/20">
+            <div>
+              <h4 className="font-semibold font-montserrat text-verdis-blue mb-2">
+                {applicationPosition?.title}
+              </h4>
+              <p className="text-sm font-lora text-muted-foreground mb-2">
+                {applicationPosition?.department}
+              </p>
+              <p className="text-xs font-lora text-muted-foreground">
+                {applicationPosition?.description}
+              </p>
+            </div>
+          </Card>
+
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="name" className="font-montserrat text-verdis-blue">Full Name *</Label>
+                <Input
+                  id="name"
+                  value={applicationData.name}
+                  onChange={(e) => setApplicationData(prev => ({ ...prev, name: e.target.value }))}
+                  placeholder="Your full name"
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label htmlFor="email" className="font-montserrat text-verdis-blue">Email *</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={applicationData.email}
+                  onChange={(e) => setApplicationData(prev => ({ ...prev, email: e.target.value }))}
+                  placeholder="your.email@example.com"
+                  className="mt-1"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <Label htmlFor="contact" className="font-montserrat text-verdis-blue">Contact Information</Label>
+              <Input
+                id="contact"
+                value={applicationData.contact}
+                onChange={(e) => setApplicationData(prev => ({ ...prev, contact: e.target.value }))}
+                placeholder="Phone number or other contact"
+                className="mt-1"
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="qualifications" className="font-montserrat text-verdis-blue">Qualifications *</Label>
+              <Textarea
+                id="qualifications"
+                value={applicationData.qualifications}
+                onChange={(e) => setApplicationData(prev => ({ ...prev, qualifications: e.target.value }))}
+                placeholder="Describe your educational background and relevant qualifications"
+                className="mt-1"
+                rows={3}
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="experience" className="font-montserrat text-verdis-blue">Relevant Experience *</Label>
+              <Textarea
+                id="experience"
+                value={applicationData.experience}
+                onChange={(e) => setApplicationData(prev => ({ ...prev, experience: e.target.value }))}
+                placeholder="Describe your relevant work experience and achievements"
+                className="mt-1"
+                rows={3}
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="vision" className="font-montserrat text-verdis-blue">Vision for the Role *</Label>
+              <Textarea
+                id="vision"
+                value={applicationData.vision}
+                onChange={(e) => setApplicationData(prev => ({ ...prev, vision: e.target.value }))}
+                placeholder="Describe your vision and goals for this position"
+                className="mt-1"
+                rows={3}
+              />
+            </div>
+            
+            <div className="flex gap-3 pt-4">
+              <Button
+                variant="verdis-outline"
+                onClick={() => setShowApplicationForm(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="verdis"
+                onClick={submitApplication}
+                className="flex-1"
+              >
+                Submit Application
+              </Button>
+            </div>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 };
 
