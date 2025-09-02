@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Users, Crown, Scale, Shield, Building, UserPlus, Mail } from 'lucide-react';
+import { Users, Crown, Scale, Shield, Building, UserPlus, Mail, Globe, Briefcase } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -88,6 +88,26 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
       icon: Users,
       requirements: 'Parliamentary experience, strong communication skills',
       term: '2 years'
+    },
+    {
+      id: 'country-ambassador',
+      title: 'Country Ambassador',
+      department: 'Ministry of Foreign Affairs',
+      status: 'vacant',
+      description: 'Represents Verdis interests abroad, promotes diplomatic relations and cultural exchange',
+      icon: Globe,
+      requirements: 'Diplomatic experience, multilingual abilities, international relations background',
+      term: '3 years'
+    },
+    {
+      id: 'high-commissioner',
+      title: 'High Commissioner',
+      department: 'Ministry of Foreign Affairs',
+      status: 'vacant',
+      description: 'Senior diplomatic representative overseeing consular services and bilateral relations',
+      icon: Briefcase,
+      requirements: 'Senior diplomatic experience, leadership skills, regional expertise',
+      term: '3 years'
     }
   ];
 
