@@ -31,16 +31,6 @@ const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialo
 
   const governmentPositions = [
     {
-      id: 'president',
-      title: 'President',
-      department: 'Executive Office',
-      status: 'occupied',
-      description: 'Head of State and Government, oversees national policy and international relations',
-      icon: Crown,
-      requirements: 'Verdian citizen for 5+ years, proven leadership experience',
-      term: '4 years'
-    },
-    {
       id: 'foreign-minister',
       title: 'Minister of Foreign Affairs',
       department: 'Ministry of Foreign Affairs',

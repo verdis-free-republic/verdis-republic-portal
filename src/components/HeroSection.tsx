@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, MapPin, Heart, Users } from 'lucide-react';
+import { ArrowRight, MapPin, Heart, Users, Briefcase } from 'lucide-react';
 import danubeHero from '@/assets/danube-river-hero.jpg';
 import verdisFlag from '@/assets/verdis-flag.jpg';
 import { CitizenshipFormWizard } from '@/components/citizenship/CitizenshipFormWizard';
+import GovernmentStructureDialog from '@/components/GovernmentStructureDialog';
 
 const HeroSection = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isVacanciesOpen, setIsVacanciesOpen] = useState(false);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -124,6 +126,25 @@ const HeroSection = () => {
         isOpen={isFormOpen} 
         onClose={() => setIsFormOpen(false)} 
       />
+
+      {/* Government Vacancies Dialog */}
+      <GovernmentStructureDialog 
+        isOpen={isVacanciesOpen} 
+        onClose={() => setIsVacanciesOpen(false)} 
+      />
+
+      {/* Floating Vacancies Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          variant="verdis"
+          size="sm"
+          className="rounded-full shadow-2xl group"
+          onClick={() => setIsVacanciesOpen(true)}
+        >
+          <Briefcase className="w-4 h-4 mr-2" />
+          Vacancies
+        </Button>
+      </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">

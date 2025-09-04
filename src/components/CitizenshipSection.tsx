@@ -219,7 +219,14 @@ const CitizenshipSection = () => {
               </div>
             </Card>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-4">
+              <Button 
+                variant="verdis-outline"
+                size="lg"
+                onClick={() => setIsMapDialogOpen(false)}
+              >
+                Cancel
+              </Button>
               <Button 
                 variant="verdis" 
                 size="lg"

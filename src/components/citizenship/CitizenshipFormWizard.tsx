@@ -209,13 +209,13 @@ export const CitizenshipFormWizard = ({ isOpen, onClose }: CitizenshipFormWizard
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto w-[95vw] sm:w-full">
-        <DialogHeader className="space-y-4 sm:space-y-6">
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto w-[95vw] sm:w-full p-4 sm:p-6">
+        <DialogHeader className="space-y-3 sm:space-y-6">
           <div className="text-center space-y-2">
-            <DialogTitle className="text-xl sm:text-3xl font-bold font-montserrat text-verdis-blue">
+            <DialogTitle className="text-lg sm:text-3xl font-bold font-montserrat text-verdis-blue">
               Verdian Citizenship Application
             </DialogTitle>
-            <p className="text-sm sm:text-base text-muted-foreground px-4">
+            <p className="text-xs sm:text-base text-muted-foreground px-2 sm:px-4">
               Join the Free Republic of Verdis - A community built on freedom, unity, and opportunity
             </p>
           </div>
