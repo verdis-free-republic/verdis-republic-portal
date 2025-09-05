@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin, Heart, Users, Briefcase } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import danubeHero from '@/assets/danube-river-hero.jpg';
 import verdisFlag from '@/assets/verdis-flag.jpg';
-import { CitizenshipFormWizard } from '@/components/citizenship/CitizenshipFormWizard';
-import GovernmentStructureDialog from '@/components/GovernmentStructureDialog';
 
 const HeroSection = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isVacanciesOpen, setIsVacanciesOpen] = useState(false);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -53,16 +50,17 @@ const HeroSection = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
-            <Button 
-              variant="verdis" 
-              size="xl" 
-              className="group"
-              onClick={() => setIsFormOpen(true)}
-            >
-              <Users className="w-5 h-5 mr-2" />
-              Apply for Citizenship
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <Link to="/citizenship">
+              <Button 
+                variant="verdis" 
+                size="xl" 
+                className="group"
+              >
+                <Users className="w-5 h-5 mr-2" />
+                Apply for Citizenship
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
             
             <Button 
               variant="verdis-secondary" 
@@ -121,29 +119,18 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Citizenship Form Modal */}
-      <CitizenshipFormWizard 
-        isOpen={isFormOpen} 
-        onClose={() => setIsFormOpen(false)} 
-      />
-
-      {/* Government Vacancies Dialog */}
-      <GovernmentStructureDialog 
-        isOpen={isVacanciesOpen} 
-        onClose={() => setIsVacanciesOpen(false)} 
-      />
-
       {/* Floating Vacancies Button */}
       <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          variant="verdis"
-          size="sm"
-          className="rounded-full shadow-2xl group"
-          onClick={() => setIsVacanciesOpen(true)}
-        >
-          <Briefcase className="w-4 h-4 mr-2" />
-          Vacancies
-        </Button>
+        <Link to="/vacancies">
+          <Button
+            variant="verdis"
+            size="sm"
+            className="rounded-full shadow-2xl group"
+          >
+            <Briefcase className="w-4 h-4 mr-2" />
+            Vacancies
+          </Button>
+        </Link>
       </div>
 
       {/* Scroll Indicator */}

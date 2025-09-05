@@ -13,9 +13,10 @@ import { supabase } from '@/integrations/supabase/client';
 interface GovernmentStructureDialogProps {
   isOpen: boolean;
   onClose: () => void;
+  isFullPage?: boolean;
 }
 
-const GovernmentStructureDialog = ({ isOpen, onClose }: GovernmentStructureDialogProps) => {
+const GovernmentStructureDialog = ({ isOpen, onClose, isFullPage = false }: GovernmentStructureDialogProps) => {
   const { toast } = useToast();
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [showApplicationForm, setShowApplicationForm] = useState(false);

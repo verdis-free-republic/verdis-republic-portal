@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
 import { Facebook, Twitter, Instagram, Youtube, Linkedin, Mail, MapPin } from 'lucide-react';
 
@@ -6,11 +7,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { label: "Government", href: "#government" },
-    { label: "Citizenship", href: "#citizenship" },
+    { label: "Government", href: "/vacancies" },
+    { label: "Citizenship", href: "/citizenship" },
     { label: "Settlement", href: "#settlement" },
     { label: "Donations", href: "#donations" },
-    { label: "Contact", href: "#contact" },
+    { label: "Feedback", href: "/feedback" },
   ];
 
   const socialLinks = [
@@ -57,12 +58,21 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a 
-                    href={link.href}
-                    className="font-lora text-white/80 hover:text-primary transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith('#') ? (
+                    <a 
+                      href={link.href}
+                      className="font-lora text-white/80 hover:text-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link 
+                      to={link.href}
+                      className="font-lora text-white/80 hover:text-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
